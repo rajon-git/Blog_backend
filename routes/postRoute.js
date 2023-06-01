@@ -10,8 +10,9 @@ const {
   DislikeToPost,
 } = require("../controllers/postCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
+const {photoUpload,postImgResize} = require("../helpers/photoUpload");
 
-router.post("/post/",authMiddleware,create);
+router.post("/post",authMiddleware,photoUpload.single("image"),postImgResize,create);
 
 router.put("/post/likes", authMiddleware, LikeToPost);
 router.put("/post/dislikes", authMiddleware, DislikeToPost);
